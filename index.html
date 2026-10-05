@@ -3,62 +3,125 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Geovisor de residuos - prototipo</title>
+<title>Residuos | Geovisor de infraestructuras</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="assets/style.css">
-<style>body{margin:0;padding:18px;background:#ecece8} .grm-demo-shell{max-width:1500px;margin:0 auto}</style>
 </head>
 <body>
-
-<div class="grm-demo-shell">
-  <div class="grm-internal-banner">Prototipo demostrativo · no constituye una publicación oficial</div>
-  <header class="grm-carm-head">
-    <div class="grm-brand"><div class="grm-mark" aria-hidden="true"></div><div><div class="grm-brand-main">Región de Murcia</div><div class="grm-brand-sub">Portal de Calidad y Evaluación Ambiental</div></div></div>
-    <div class="grm-dg">Consejería competente en Medio Ambiente<br>Dirección General de Medio Ambiente</div>
-  </header>
-  <nav class="grm-nav"><span>Autorizaciones</span><span>Evaluación</span><span>Aire</span><span>Agua</span><span>Suelo</span><span class="active">Residuos</span><span>Vigilancia</span><span>Excelencia</span><span>Actuaciones</span></nav>
-  <main class="grm-body">
-    <div class="grm-breadcrumb">Inicio › Residuos › Infraestructuras › Geovisor</div>
-    <h2>Geovisor de infraestructuras de gestión de residuos</h2>
-    <p class="grm-intro">Consulta la localización de las principales infraestructuras y redes de apoyo a la gestión de residuos de la Región de Murcia. Activa o desactiva las capas y pulsa sobre cada elemento para consultar su información básica.</p>
-    <div class="grm-viewer">
-      <aside class="grm-panel">
-        <h3>Capas del visor</h3>
-        <label class="grm-search-label" for="grm-municipio-select">Ir a municipio</label>
-        <select id="grm-municipio-select" class="grm-select"><option value="">Toda la Región de Murcia</option></select>
-
-        <div class="grm-layer-group"><div class="grm-layer-group-title">Infraestructuras estratégicas</div>
-          <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="rsu"><i class="grm-dot" style="background:#b1193f"></i><span>Plantas de tratamiento de residuos municipales</span></label>
-          <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="envases"><i class="grm-dot" style="background:#1f9d3a"></i><span>Plantas de clasificación de envases</span></label>
-          <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="transferencia"><i class="grm-dot" style="background:#7b5b45"></i><span>Estaciones de transferencia</span></label>
-          <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="vert_no_peligrosos"><i class="grm-dot" style="background:#123e67"></i><span>Vertederos de residuos no peligrosos</span></label>
-          <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="vert_inertes"><i class="grm-dot" style="background:#2b6ea6"></i><span>Vertederos de residuos inertes</span></label>
-        </div>
-
-        <div class="grm-layer-group"><div class="grm-layer-group-title">Red de apoyo y otras instalaciones</div>
-          <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="ecoparques"><i class="grm-dot" style="background:#2f7d32"></i><span>Ecoparques</span></label>
-          <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="desguaces"><i class="grm-dot" style="background:#dc6d22"></i><span>Desguaces</span></label>
-          <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="instalaciones_general"><i class="grm-dot" style="background:#7b4fa3"></i><span>Instalaciones de gestión (inventario general)</span></label>
-        </div>
-
-        <div class="grm-layer-group"><div class="grm-layer-group-title">Referencia</div>
-          <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="municipios"><i class="grm-line"></i><span>Límites municipales</span></label>
-        </div>
-        <div class="grm-panel-actions"><button type="button" id="grm-default-layers" class="grm-btn">Capas iniciales</button><button type="button" id="grm-clear-layers" class="grm-btn">Limpiar</button></div>
-        <div id="grm-visible-count" class="grm-visible"></div>
-      </aside>
-
-      <section class="grm-map-wrap">
-        <div class="grm-map-topbar"><button type="button" id="grm-panel-toggle" class="grm-float-btn grm-panel-toggle">Capas</button><button type="button" id="grm-fullscreen" class="grm-float-btn">Pantalla completa</button></div>
-        <div id="grm-map" class="grm-map" role="application" aria-label="Mapa interactivo de infraestructuras de residuos"></div>
-      </section>
+  <div class="site-topbar">
+    <div class="wrap topbar-inner">
+      <div></div>
+      <div class="topbar-icons" aria-hidden="true"><span>✕</span><span>▸</span></div>
     </div>
-    <div class="grm-footnote">Fuente: datos GIS facilitados por la Dirección General de Medio Ambiente. Base cartográfica: OpenStreetMap. Prototipo de trabajo.</div>
-  </main>
-</div>
+  </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="assets/data.js"></script>
-<script src="assets/main.js"></script>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand-block">
+        <div class="brand-shield"></div>
+        <div class="brand-text"><div class="brand-title"><span>Región</span> <span>de Murcia</span></div></div>
+      </div>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="#">Autorizaciones</a><a href="#">Evaluación</a><a href="#">Aire</a><a href="#">Agua</a><a href="#">Suelo</a>
+        <a href="#" class="active">Residuos</a><a href="#">Vigilancia</a><a href="#">Excelencia</a><a href="#">Actuaciones</a><a href="#" class="search-link">⌕</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" role="banner">
+    <img src="assets/hero-residuos.png" alt="Cabecera ilustrativa de residuos" class="hero-image">
+    <div class="hero-title">Residuos</div>
+  </section>
+
+  <div class="breadcrumb-bar"><div class="wrap breadcrumb">Inicio / Residuos / Infraestructuras / Geovisor</div></div>
+
+  <main class="main-area">
+    <div class="wrap layout-grid">
+      <section class="content-column">
+        <article class="intro-box">
+          <p><strong>La producción de residuos</strong> va inherentemente vinculada a nuestra vida cotidiana y a las actividades sociales y económicas. Este prototipo permite visualizar de forma interactiva infraestructuras de gestión de residuos, información territorial relativa al inventario de amianto y puntos de residuos dispersos en la Región de Murcia.</p>
+          <p>Las capas pueden activarse de forma independiente y consultarse por municipio. La versión de demostración está diseñada para valorar su futura integración en el Portal de Calidad y Evaluación Ambiental.</p>
+        </article>
+
+        <section class="geo-card">
+          <div class="section-kicker">Información territorial</div>
+          <h1>Geovisor de residuos y actuaciones ambientales</h1>
+          <p class="geo-intro">Activa o desactiva las capas disponibles, consulta los elementos pulsando sobre el mapa y utiliza el selector de municipios para centrar la vista.</p>
+
+          <div class="grm-viewer">
+            <aside class="grm-panel">
+              <h3>Capas del visor</h3>
+              <label class="grm-search-label" for="grm-municipio-select">Ir a municipio</label>
+              <select id="grm-municipio-select" class="grm-select"><option value="">Toda la Región de Murcia</option></select>
+
+              <div class="grm-layer-group"><div class="grm-layer-group-title">Infraestructuras de gestión de residuos</div>
+                <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="rsu"><i class="grm-dot" style="background:#b1193f"></i><span>Plantas de tratamiento de residuos municipales</span></label>
+                <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="envases"><i class="grm-dot" style="background:#1f9d3a"></i><span>Plantas de clasificación de envases</span></label>
+                <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="transferencia"><i class="grm-dot" style="background:#7b5b45"></i><span>Estaciones de transferencia</span></label>
+                <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="vert_no_peligrosos"><i class="grm-dot" style="background:#123e67"></i><span>Vertederos de residuos no peligrosos</span></label>
+                <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="vert_inertes"><i class="grm-dot" style="background:#2b6ea6"></i><span>Vertederos de residuos inertes</span></label>
+                <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="ecoparques"><i class="grm-dot" style="background:#2f7d32"></i><span>Ecoparques</span></label>
+                <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="desguaces"><i class="grm-dot" style="background:#dc6d22"></i><span>Desguaces</span></label>
+                <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="instalaciones_general"><i class="grm-dot" style="background:#7b4fa3"></i><span>Instalaciones de gestión (inventario general)</span></label>
+              </div>
+
+              <div class="grm-layer-group"><div class="grm-layer-group-title">Inventario de amianto</div>
+                <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="amianto_publico"><i class="grm-square" style="background:#8f2948"></i><span>Edificaciones públicas</span></label>
+                <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="amianto_privado"><i class="grm-square" style="background:#62438d"></i><span>Edificaciones privadas <small>(agregado municipal en la demo)</small></span></label>
+                <div class="grm-filter-box">
+                  <div class="grm-filter-title">Presencia / indicios</div>
+                  <label class="grm-mini-check"><input class="grm-asb-status" type="checkbox" value="confirmada" checked><i class="grm-dot" style="background:#c62828"></i>Confirmada</label>
+                  <label class="grm-mini-check"><input class="grm-asb-status" type="checkbox" value="sospecha" checked><i class="grm-dot" style="background:#f39c12"></i>Sospecha / dudosa</label>
+                  <label class="grm-mini-check"><input class="grm-asb-status" type="checkbox" value="no"><i class="grm-dot" style="background:#708090"></i>No detectada</label>
+                  <label class="grm-mini-check"><input class="grm-asb-status" type="checkbox" value="sin_dato"><i class="grm-dot" style="background:#aaa"></i>Sin dato</label>
+                  <label class="grm-search-label grm-priority-label" for="grm-priority-filter">Prioridad</label>
+                  <select id="grm-priority-filter" class="grm-select grm-select-small"><option value="">Todas</option><option>Alta</option><option>Media</option><option>Baja</option><option>Sin dato</option></select>
+                  <div id="grm-amianto-mode" class="grm-mode-note">Active una capa de amianto para consultar el inventario.</div>
+                </div>
+              </div>
+
+              <div class="grm-layer-group"><div class="grm-layer-group-title">Residuos dispersos</div>
+                <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="littering"><i class="grm-dot" style="background:#8e5a2b"></i><span>Puntos de littering</span></label>
+              </div>
+
+              <div class="grm-layer-group"><div class="grm-layer-group-title">Referencia</div>
+                <label class="grm-layer"><input class="grm-layer-toggle" type="checkbox" data-layer="municipios"><i class="grm-line"></i><span>Límites municipales</span></label>
+              </div>
+
+              <div class="grm-panel-actions"><button type="button" id="grm-default-layers" class="grm-btn">Capas iniciales</button><button type="button" id="grm-clear-layers" class="grm-btn">Limpiar</button></div>
+              <div id="grm-visible-count" class="grm-visible"></div>
+            </aside>
+
+            <section class="grm-map-wrap">
+              <div class="grm-map-topbar"><button type="button" id="grm-panel-toggle" class="grm-float-btn grm-panel-toggle">Capas</button><button type="button" id="grm-fullscreen" class="grm-float-btn">Pantalla completa</button></div>
+              <div id="grm-map" class="grm-map" role="application" aria-label="Mapa interactivo de residuos y actuaciones ambientales"></div>
+            </section>
+          </div>
+
+          <div class="grm-footnote">Fuente: datos GIS facilitados por la Dirección General de Medio Ambiente. Base cartográfica: OpenStreetMap. Prototipo de trabajo para demostración interna. La capa de edificaciones públicas se representa mediante puntos representativos de sus geometrías. Por tratarse de una demostración alojada en un repositorio público, las edificaciones privadas se muestran únicamente de forma agregada por municipio; las localizaciones individuales no se incluyen en este paquete.</div>
+          <div class="funding-strip" aria-label="Entidades financiadoras"><img src="assets/financiacion-prtr.png" alt="Financiado por la Unión Europea NextGenerationEU, Gobierno de España, Ministerio para la Transición Ecológica y el Reto Demográfico, Plan de Recuperación Transformación y Resiliencia y Región de Murcia"></div>
+        </section>
+      </section>
+
+      <aside class="side-column">
+        <a class="side-link" href="#">Registro de gestores y productores de residuos</a>
+        <a class="side-link" href="#">Productores y gestores. Autorizaciones y comunicaciones</a>
+        <a class="side-link" href="#">Traslado de residuos</a>
+        <a class="side-link" href="#">Planificación</a>
+        <a class="side-link side-link-active" href="#">Geovisor de residuos y actuaciones ambientales</a>
+      </aside>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="assets/data.js"></script>
+  <script src="assets/amianto-publico.js"></script>
+  <script src="assets/amianto-privado-agg.js"></script>
+  <script src="assets/littering.js"></script>
+  <script src="assets/v3-meta.js"></script>
+  <script src="assets/main.js"></script>
 </body>
 </html>
