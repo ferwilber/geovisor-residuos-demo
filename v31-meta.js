@@ -1,0 +1,1 @@
+window.GRM_V3_META={"public_source_total":3363,"public_mappable":3361,"private_source_total":46934,"private_mappable":46770,"littering_total":95};
